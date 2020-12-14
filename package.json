@@ -1,0 +1,35 @@
+{
+  "name": "keeptrack",
+  "version": "1.0.0",
+  "description": "Single page web application to track packages and calculate how much has been spent on them over a timeframe.",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "server": "nodemon server.js --ignore 'keeptrack/'", 
+    "keeptrack": "npm run serve --prefix keeptrack",
+    "dev": "concurrently \"npm run server\" \"npm run keeptrack\""
+
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JoeCheong23/KeepTrack.git"
+  },
+  "author": "Joe Cheong",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/JoeCheong23/KeepTrack/issues"
+  },
+  "homepage": "https://github.com/JoeCheong23/KeepTrack#readme",
+  "dependencies": {
+    "axion": "^0.1.0",
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "mongoose": "^5.11.7",
+    "morgan": "^1.10.0"
+  },
+  "devDependencies": {
+    "concurrently": "^5.3.0",
+    "nodemon": "^2.0.6"
+  }
+}
