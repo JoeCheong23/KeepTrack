@@ -5,6 +5,7 @@ const { PORT, mongoUri } = require('./config')
 const cors = require('cors')
 const morgan = require('morgan')
 const bodyParser = require('body-parser')
+const packageObjectItemRoutes = require ('./routes/api/PackageObjects')
 
 app.use(cors())
 app.use(morgan('tiny'))
@@ -20,6 +21,7 @@ mongoose.connect(mongoUri, {
         .catch((err) => console.log('err'))
 
 
-    app.get('/', (req, res) => res.send('Hello World'))
+app.use('/api/packageObjectItems', packageObjectItemRoutes)
+app.get('/', (req, res) => res.send('Hello World'))
 
 app.listen(PORT, () => console.log(`App listening at http://localhost:${PORT}`))

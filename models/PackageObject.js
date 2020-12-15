@@ -1,7 +1,7 @@
 const { Schema, model } = require('mongoose');
 
 const PackageObjectSchema = new Schema({
-    trackingNumber:{
+    trackingNumber: {
         type: String,
         required:true,
     }, 
@@ -10,7 +10,7 @@ const PackageObjectSchema = new Schema({
         default: Date.now,
     },
     id: {
-        type: Int,
+        type: Number,
     },
 
 })
