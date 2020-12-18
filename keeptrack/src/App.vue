@@ -4,8 +4,10 @@
   <HelloWorld msg="Let's try something new!"/>
   <div id="app">
     <div class="notification" v-for="eachPackage in packages" :key="eachPackage.id">
-      <p> {{ getStatus(eachPackage.trackingNumber) }} </p>
+      <p> {{ eachPackage.trackingNumber }} </p>
     </div>
+    <input id="trackingNumberInput" v-model="inputVal" placeholder="Type in a tracking number"/>
+    <button @click="makeTracker(inputVal)">Confirm</button>
   </div>
   </div>
 </template>
@@ -14,9 +16,6 @@
 import HelloWorld from './components/HelloWorld.vue'
 import axios from 'axios'
 require('babel-polyfill')
-const EasyPost = require('@easypost/api')
-import { easyAPI } from '../../config.js'
-const easyTracking = new EasyPost(easyAPI)
 
 
 export default {
@@ -31,12 +30,13 @@ export default {
   data() {
     return {
       packages: [],
-      locations: []
+      locations: [],
+      inputVal: '',
 
     };
   },
   async mounted() {
-    const response = await axios.get('api/packageObjectItems/')
+    const response = await axios.get('http://localhost:3000/api/packageObjectItems/')
     this.packages = response.data;
 
 
@@ -45,19 +45,12 @@ export default {
 
   methods: {
 
-    createTracker(trackingNum) {
-      console.log(trackingNum)
-      const tracker = new easyTracking.Tracker({
-        tracking_code: trackingNum,
-      })
-      tracker.save().then(console.log)
-    },
-    
-    getStatus(trackingNum) {
-
-      this.createTracker(trackingNum);
-        
-    },
+    async makeTracker(trackingNumber) {
+      console.log(trackingNumber)
+      await axios.post('http://localhost:3000/api/addTracker/', {
+        "trackingNumber": trackingNumber,
+      }).then(response => console.log(response))
+    }
     
 
 
