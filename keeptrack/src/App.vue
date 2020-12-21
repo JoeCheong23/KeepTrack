@@ -1,7 +1,6 @@
 <template>
   <div>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Let's try something new!"/>
+  <Button @click="consoleIt" label="Big button"></Button>
   <div id="app">
     <div class="notification" v-for="eachPackage in packages" :key="eachPackage.id">
       <p> {{ eachPackage.trackingNumber }} </p>
@@ -13,8 +12,8 @@
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
-import axios from 'axios'
+import { getAllTrackingNumbersFromDatabase, makeNewTracker } from './methods/databaseMethods.js'
+import { ref, onMounted } from 'vue'
 require('babel-polyfill')
 
 
@@ -22,49 +21,34 @@ export default {
 
   name: 'App',
 
-  components: {
-    HelloWorld,
-  },
 
-  
-  data() {
-    return {
-      packages: [],
-      locations: [],
-      inputVal: '',
+  setup() {
+    const packages = ref([]);
+    const locations = ref([]);
+    const inputVal = ref('');
+    const makeTracker = makeNewTracker;
 
-    };
-  },
-  async mounted() {
-    const response = await axios.get('http://localhost:3000/api/packageObjectItems/')
-    this.packages = response.data;
-
-
-
-  },
-
-  methods: {
-
-    async makeTracker(trackingNumber) {
-      console.log(trackingNumber)
-      await axios.post('http://localhost:3000/api/addTracker/', {
-        "trackingNumber": trackingNumber,
-      }).then(response => console.log(response))
+    function consoleIt() {
+       console.log('Primevue button pressed')
     }
-    
 
-
-
-
+    onMounted( () => {
+      getAllTrackingNumbersFromDatabase().then(result => packages.value = result);
+    });
+     
+    return {
+      makeTracker,
+      inputVal,
+      locations,
+      packages,
+      consoleIt
+    };
+   
   }
 
-
-    
-
-
+} 
+   
   
-
-}
 </script>
 
 <style>

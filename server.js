@@ -13,6 +13,7 @@ app.use(cors())
 app.use(morgan('tiny'))
 app.use(bodyParser.json())
 
+//Establish connection with MongoDB Atlas database.
 mongoose.connect(mongoUri, {
         useNewUrlParser: true,
         useCreateIndex: true,
@@ -25,7 +26,7 @@ mongoose.connect(mongoUri, {
 
 app.use('/api/packageObjectItems', packageObjectItemRoutes)
 
-app.get('/', (req, res) => res.send('Hello World'))
+app.get('/', (req, res) => res.send('Online'))
 
 app.post('/api/addTracker', (req, res) => {
         res.status(200).send('Received request for tracking number' + req.body.trackingNumber)
