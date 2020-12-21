@@ -29,9 +29,6 @@
     "express": "^4.17.1",
     "mongoose": "^5.11.7",
     "morgan": "^1.10.0",
-    "primeflex": "^2.0.0",
-    "primeicons": "^4.1.0",
-    "primevue": "^3.1.1",
     "standard": "^16.0.3",
     "vue-material": "^1.0.0-beta-15",
     "vue-router": "^3.4.9"

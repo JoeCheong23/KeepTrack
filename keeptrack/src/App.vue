@@ -1,4 +1,6 @@
 <template>
+<div>
+  <MainHeader/>
   <div>
   <Button @click="consoleIt" label="Big button"></Button>
   <div id="app">
@@ -9,11 +11,13 @@
     <button @click="makeTracker(inputVal)">Confirm</button>
   </div>
   </div>
+</div>
 </template>
 
 <script>
 import { getAllTrackingNumbersFromDatabase, makeNewTracker } from './methods/databaseMethods.js'
 import { ref, onMounted } from 'vue'
+import MainHeader from './components/MainHeader'
 require('babel-polyfill')
 
 
@@ -21,6 +25,9 @@ export default {
 
   name: 'App',
 
+  components: {
+    MainHeader,
+  },
 
   setup() {
     const packages = ref([]);
@@ -51,7 +58,7 @@ export default {
   
 </script>
 
-<style>
+<style scoped>
 /* #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -63,7 +70,7 @@ export default {
 
 #app {
   margin: auto;
-  margin-top: 3rem;
-  max-width: 700px;
+  margin-top: 1rem;
 }
+
 </style>

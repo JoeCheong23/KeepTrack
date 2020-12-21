@@ -6,6 +6,7 @@ import Button from 'primevue/button';
 import 'primevue/resources/themes/md-light-indigo/theme.css' //Material Design Indigo Light theme
 import 'primevue/resources/primevue.min.css' //core CSS
 import 'primeicons/primeicons.css' //Icons
+import 'primeflex/primeflex.css' //Primeflex design helpers and templates.
 
 const app = createApp(App);
 app.use(PrimeVue);
