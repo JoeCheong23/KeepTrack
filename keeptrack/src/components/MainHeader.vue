@@ -5,10 +5,10 @@
         <h2 class="p-col p-ml-6 p-mr-0">KeepTrack</h2>
         <div class="p-col p-d-flex p-formgrid p-fluid">  
           <div class="p-mx-5">
-            <Button label="Home" class="p-button-text"></Button>
+            <Button label="Home" class="p-button-text" @click="testMethod()"></Button>
           </div>
           <div class="p-mx-5">
-            <Button label="Statistics" class="p-button-secondary p-button-text"></Button>
+            <Button label="Statistics" class="p-button-secondary p-button-text" @click="testMethod()"></Button>
           </div>
         </div>
       </div>
@@ -18,8 +18,19 @@
 
 <script>
 export default {
-    name: 'MainHeader'
-};
+    name: 'MainHeader',
+
+    setup() {
+    function testMethod() {
+      console.log('Main buttons clicked')
+    }
+
+    return {
+      testMethod,
+    }
+
+    }
+}
 </script>
 
 <style scoped>

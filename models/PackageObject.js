@@ -4,14 +4,32 @@ const PackageObjectSchema = new Schema({
     trackingNumber: {
         type: String,
         required:true,
+        unique: true,
     }, 
     dateAdded: {
         type: Date,
-        default: Date.now,
+        default: Date.now
     },
     id: {
-        type: Number,
+        type: String,
+        default: ''
     },
+    description: {
+        type: String,
+        default: ''
+    },
+    cost: {
+        type: Number,
+        default: 0
+    },
+    status: {
+        type: String,
+        default: 'Unknown'
+    },
+    location: {
+        type: String,
+        default: 'Unknown',
+    }
 
 })
 
