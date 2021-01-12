@@ -1,19 +1,19 @@
 <template>
     <div>
-        <Button label="Add New Package Form" icon="pi pi-plus" class="p-mr-2 p-button-info p-button-raised" @click="makeFormVisible"/>
-        <Dialog header="Add New Package" v-model:visible="displayForm" :style="{width: '50vw'}">
+        <Button style="margin-right: 1rem;" type="button" icon="pi pi-pencil" class="p-button-rounded p-button-info" @click="makeFormVisible"></Button>
+        <Dialog :header="header" v-model:visible="displayForm" :style="{width: '50vw'}" :modal="true">
             
             <p> </p>
             <div class="p-grid p-flex-column">
                 
-                <div class="p-col">
+                <div class="p-col ">
                         <span class="p-input-icon-right p-float-label">
-                            <InputText id="trackingNumberField" type="text" v-model="trackingNumber" disabled/>
+                            <InputText style="float: left;" id="trackingNumberField" type="text" v-model="trackingNumber" disabled/>
                             <label for="trackingNumberField">Tracking Number</label>
                         </span>
                 </div>
 
-                <div class="p-col">
+                <div class="p-col ">
                     <template v-if="costBool">
                         <span class="p-input-icon-right p-float-label">
                             <InputNumber id="cost-field" mode="decimal" v-model="cost" :minFractionDigits="2" :maxFractionDigits="2"/>
@@ -29,7 +29,7 @@
                     </template>
                 </div>
 
-                <div class="p-col">
+                <div class="p-col ">
                     <span class="p-input-icon-right p-float-label">
                         <Textarea id="descriptionField" v-model="description" rows="5" cols="50"/>
                         <label for="descriptionField">Description</label>
@@ -40,7 +40,7 @@
 
             <template #footer>
                 <Button label="Cancel" icon="pi pi-times" @click="closeForm" class="p-button-text p-button-danger"/>
-                <Button label="Add Package" icon="pi pi-check" @click="check" class="p-button-text"/>
+                <Button label="Edit Package" icon="pi pi-check" @click="check" class="p-button-text"/>
             </template>
 
             
@@ -55,7 +55,7 @@
 
 <script>
 
- import { ref, toRaw, onMounted, toRef } from 'vue';
+ import { ref, toRaw, toRef } from 'vue';
  import { updatePackageDataByUser } from '../methods/databaseMethods.js';
 
 
@@ -79,12 +79,12 @@ export default {
         const costBool = ref(true);
         const cost = ref(0.00);
         const description = ref('');
-
-        onMounted(() => initialiseFields());
+        const header = ref('Edit Package - ' + currentPackage.value);
 
 
         function makeFormVisible() {
             displayForm.value = true;
+            initialiseFields();
         }
 
         function closeForm() {
@@ -114,7 +114,7 @@ export default {
 
                 const updatedObject = {
                     trackingNumber: trackingNumber.value,
-                    cost: cost.value,
+                    cost: cost.value.toFixed(2),
                     description: description.value,
                 }
 
@@ -142,17 +142,19 @@ export default {
 
         function initialiseFields() {
 
-            for (const currPackage in packagesAsObject.arrayOfPackages) {
-                if (currentPackage.value === currPackage.trackingNumber) {
-                    cost.value = currPackage.cost;
-                    description.value = currPackage.description;
+            packagesAsObject.arrayOfPackages.forEach((arrayItem) => {
+
+                if (arrayItem.trackingNumber === currentPackage.value) {
+                    cost.value = arrayItem.cost;
+                    description.value = arrayItem.description;
                 }
-            }
+
+            })
 
         }
 
+
         function clearFields() {
-            trackingNumber.value = '';
             cost.value = '';
             description.value = '';
         }
@@ -167,6 +169,7 @@ export default {
             makeFormVisible,
             closeForm,
             check,
+            header,
         }
 
     }
@@ -176,5 +179,6 @@ export default {
 </script>
 
 <style>
+
 
 </style>

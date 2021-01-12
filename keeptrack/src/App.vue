@@ -4,14 +4,6 @@
     <h1 class="greeting p-col">Hello, User!</h1>
     <MainTableView :package-objects="packages" :loadingBool="loading" />
 
-    <div class="p-col">
-
-      <div id="app">
-          <input id="trackingNumberInput" v-model="inputVal" placeholder="Type in a tracking number"/>
-        <button @click="makeTracker(inputVal)">Confirm</button> 
-        <Button @click="testMethod2()" label="Print it out"/>
-    </div>
-  </div>
 </div>
 
 

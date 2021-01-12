@@ -12,7 +12,6 @@ router.get('/', async (req, res) => {
             return (new Date(a.date).getTime() - new Date(b.date).getTime())
         })
         res.status(200).json(sorted);
-        console.log('Third');
     } catch (error) {
         res.status(500).json({message: error.message});
     }
@@ -25,10 +24,9 @@ router.post('/', async (req, res) => {
         console.log(req.body);
         const packageObjectItem = await newPackageObject.save();
         if (!packageObjectItem) throw new Error('Something went wrong saving the package object');
-        res.status(200).json(packageObjectItem);
-        console.log('Second');
     } catch (error) {
-        res.status(500).json({message: error.message});;
+        res.status(500).json({message: error.message});
+        console.log(error.message);
 
     }
 })   
