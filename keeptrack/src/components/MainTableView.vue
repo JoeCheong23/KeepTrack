@@ -28,11 +28,12 @@
             />
           </template>
           <template #right>
-            <span class="p-float-label p-input-icon-right">
-              <InputText id="searchField" v-model="searchNumber" type="text" />
-              <i class="pi pi-search" />
-              <label for="searchField">Tracking Number</label>
-            </span>
+            <Button class="pi pi-info-circle p-button-rounded p-button-primary" aria:haspopup="true" aria-controls="info-overlay" @click="toggleInfoOverlay"/>
+            <OverlayPanel id="info-overlay" style="width: 25%" :dismissable="true" ref="op">
+              <p>If there is no data shown in the table when you believe there should be, please press the refresh button. Also, note that some carriers are not 
+                supported by the tracking service so the tracking data will not be updated in the table. We are working to find a fix for this soon.
+              </p>
+            </OverlayPanel>
           </template>
         </Toolbar>
       </template>
@@ -70,22 +71,8 @@
           <template #empty> No packages found. </template>
           <template #loading> Loading tracking data. Please wait. </template>
           <template #expansion="slotProps">
-            <Card
-              style="
-                width: 90%;
-                margin-left: 5%;
-                margin-right: 5%;
-                margin-bottom: 2rem;
-              "
-              class="p-col"
-            >
-              <template #header>
-                <h3 style="margin-left: 5%">Description</h3>
-              </template>
-              <template #content>
-                <p>{{ showDescription(slotProps.data.description) }}</p>
-              </template>
-            </Card>
+            <Panel header="Description" style="margin-bottom: 1%"> {{ slotProps.data.description }} </Panel>
+            <Panel header="Last Known Location"> {{ slotProps.data.location }} </Panel>
           </template>
           <Column :expander="true" headerStyle="width: 3em"></Column>
           <Column
@@ -198,12 +185,16 @@ export default {
     const deletePopupData = ref('');
     const deletePopupVisibility = ref(false);
     const currentEditTrackingNumber = ref("");
+    const op = ref(null);
+
+    function toggleInfoOverlay(event) {
+      op.value.toggle(event);
+    }
 
     function dontDelete() {
 
       deletePopupData.value = '';
       deletePopupVisibility.value = false;
-      console.log('Dont delete')
 
     }
 
@@ -259,7 +250,7 @@ export default {
 
     async function newPackageCreated(response) {
       console.log(response);
-      packageDataModel.packages.arrayOfPackages = response;
+
     }
 
     async function packageUpdated(response) {
@@ -295,6 +286,8 @@ export default {
       deletePopupVisibility,
       deletePopup,
       dontDelete,
+      toggleInfoOverlay,
+      op,
     };
   },
 };

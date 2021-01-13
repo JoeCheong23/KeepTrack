@@ -11,6 +11,8 @@ import Column from 'primevue/column';
 import Dialog from 'primevue/dialog';
 import InputNumber from 'primevue/inputnumber';
 import Textarea from 'primevue/textarea';
+import OverlayPanel from 'primevue/overlaypanel';
+import Panel from 'primevue/panel'
 
 import 'primevue/resources/themes/md-light-indigo/theme.css' //Material Design Indigo Light theme
 import 'primevue/resources/primevue.min.css' //core CSS
@@ -29,6 +31,8 @@ app.component('Column', Column);
 app.component('Dialog', Dialog);
 app.component('InputNumber', InputNumber);
 app.component('Textarea', Textarea);
+app.component('OverlayPanel', OverlayPanel);
+app.component('Panel', Panel);
 
 
 app.mount('#app');

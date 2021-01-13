@@ -1,6 +1,6 @@
 <template>
     <div>
-        <Button label="Add New Package Form" icon="pi pi-plus" class="p-mr-2 p-button-info p-button-raised" @click="makeFormVisible"/>
+        <Button label="Add New Package" icon="pi pi-plus" class="p-mr-2 p-button-info p-button-raised" @click="makeFormVisible"/>
         <Dialog header="Add New Package" v-model:visible="displayForm" :style="{width: '50vw'}">
             
             <p> </p>
